@@ -1,3 +1,4 @@
+import React, { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Leaf, Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -32,9 +33,9 @@ const footerLinks = {
   ],
 };
 
-export const Footer = () => {
+export const Footer = forwardRef<HTMLElement>((_, ref) => {
   return (
-    <footer className="bg-forest text-primary-foreground">
+    <footer ref={ref} className="bg-forest text-primary-foreground">
       {/* Newsletter Section */}
       <div className="border-b border-primary-foreground/10">
         <div className="container mx-auto px-4 py-12">
@@ -192,4 +193,6 @@ export const Footer = () => {
       </div>
     </footer>
   );
-};
+});
+
+Footer.displayName = 'Footer';

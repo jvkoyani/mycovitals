@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, Star, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -10,7 +10,7 @@ interface ProductCardProps {
   product: Product;
 }
 
-export const ProductCard = ({ product }: ProductCardProps) => {
+export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ product }, ref) => {
   const [isHovered, setIsHovered] = useState(false);
   const { addItem } = useCart();
   const defaultWeight = product.weightOptions[0];
@@ -24,6 +24,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <Link
+      ref={ref}
       to={`/product/${product.slug}`}
       className="group block"
       onMouseEnter={() => setIsHovered(true)}
@@ -136,4 +137,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       </div>
     </Link>
   );
-};
+});
+
+ProductCard.displayName = 'ProductCard';
