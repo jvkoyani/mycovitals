@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ShoppingCart, Star, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Product, formatPrice, getDiscountPercentage } from '@/lib/products';
+import { getProductImages } from '@/lib/productImages';
 import { useCart } from '@/context/CartContext';
 import { cn } from '@/lib/utils';
 
@@ -15,6 +16,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
   const { addItem } = useCart();
   const defaultWeight = product.weightOptions[0];
   const hasDiscount = defaultWeight.discountPrice !== undefined;
+  const productImages = getProductImages(product.slug);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -33,12 +35,12 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
       <div className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-elevated transition-all duration-500 h-full flex flex-col">
         {/* Image Container */}
         <div className="relative aspect-square overflow-hidden bg-cream-dark">
-          {/* Product Image Placeholder */}
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-forest/20 to-mushroom/20">
-            <div className="w-32 h-32 rounded-full bg-forest/30 flex items-center justify-center">
-              <span className="text-5xl">🍄</span>
-            </div>
-          </div>
+          {/* Product Image */}
+          <img 
+            src={productImages[0]} 
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
 
           {/* Badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-2">

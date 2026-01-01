@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Layout } from '@/components/layout/Layout';
 import { ProductCard } from '@/components/products/ProductCard';
 import { getBestSellers, products } from '@/lib/products';
+import { heroBanner } from '@/lib/productImages';
 import { cn } from '@/lib/utils';
 
 const benefits = [
@@ -144,17 +145,20 @@ const Index = () => {
 
             {/* Hero Image/Visual */}
             <div className="relative hidden lg:block">
-              <div className="relative w-full aspect-square">
-                {/* Floating Mushroom Elements */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-primary-foreground/10 backdrop-blur-md flex items-center justify-center animate-pulse-soft">
-                  <div className="text-9xl">🍄</div>
-                </div>
-                <div className="absolute top-10 right-10 w-20 h-20 rounded-full bg-gold/20 backdrop-blur-sm flex items-center justify-center animate-float">
-                  <span className="text-4xl">✨</span>
-                </div>
-                <div className="absolute bottom-20 left-10 w-16 h-16 rounded-full bg-primary-foreground/10 backdrop-blur-sm flex items-center justify-center animate-float-delayed">
-                  <span className="text-3xl">🌿</span>
-                </div>
+              <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-elevated">
+                <img 
+                  src={heroBanner} 
+                  alt="Premium organic mushroom powders for wellness" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-forest/20 to-transparent" />
+              </div>
+              {/* Floating Elements */}
+              <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-gold/90 backdrop-blur-sm flex items-center justify-center animate-float shadow-lg">
+                <span className="text-3xl">✨</span>
+              </div>
+              <div className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-primary-foreground/90 backdrop-blur-sm flex items-center justify-center animate-float-delayed shadow-lg">
+                <Leaf className="w-7 h-7 text-forest" />
               </div>
             </div>
           </div>
