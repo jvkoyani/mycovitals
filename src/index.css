@@ -195,6 +195,45 @@
   .animate-scale-in {
     animation: scale-in 0.4s ease-out forwards;
   }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  .animate-bounce-subtle {
+    animation: bounce-subtle 2s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2.5s ease-in-out infinite;
+    background-size: 200% 100%;
+  }
+
+  .animate-wiggle {
+    animation: wiggle 0.5s ease-in-out;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300;
+  }
+
+  .hover-lift:hover {
+    @apply -translate-y-1 shadow-elevated;
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 20px hsl(var(--gold) / 0.4);
+  }
+
+  .attention-ring {
+    @apply relative;
+  }
+
+  .attention-ring::after {
+    content: '';
+    @apply absolute inset-0 rounded-xl border-2 border-gold;
+    animation: attention-ring 2s ease-out infinite;
+  }
 }
 
 @keyframes float {
@@ -243,6 +282,56 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px hsl(var(--gold) / 0.3), 0 0 20px hsl(var(--gold) / 0.2);
+  }
+  50% {
+    box-shadow: 0 0 15px hsl(var(--gold) / 0.5), 0 0 40px hsl(var(--gold) / 0.3);
+  }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-3deg);
+  }
+  75% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes attention-ring {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0;
   }
 }
 
