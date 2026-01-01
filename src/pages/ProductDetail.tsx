@@ -143,9 +143,9 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             {/* Product Images - Gallery with Navigation */}
-            <div className="relative">
+            <div className="relative lg:sticky lg:top-24 lg:self-start">
               {/* Main Image */}
               <div className="relative aspect-square rounded-2xl overflow-hidden bg-cream-dark shadow-soft">
                 <img
