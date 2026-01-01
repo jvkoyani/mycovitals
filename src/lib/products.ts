@@ -140,7 +140,7 @@ export const products: Product[] = [
     reviewCount: 412,
     inStock: true,
     featured: true,
-    bestSeller: false
+    bestSeller: true
   },
   {
     id: "4",
