@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
   ShoppingCart, Minus, Plus, Star, Check, Truck, Shield, RefreshCw, 
-  ChevronRight, ChevronLeft, Clock, Award, Leaf, Heart, Package
+  ChevronRight, ChevronLeft, Clock, Award, Leaf, Heart, Package, Sparkles, Zap, Eye
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Layout } from '@/components/layout/Layout';
@@ -77,8 +77,12 @@ const ProductDetail = () => {
   return (
     <Layout>
       {/* Promo Banner */}
-      <div className="bg-gold text-accent-foreground text-center py-2 text-sm font-medium">
-        <span>🎉 Save up to 15% on all products | Free shipping on orders ₹500+</span>
+      <div className="bg-gradient-to-r from-gold via-gold-dark to-gold text-accent-foreground text-center py-2.5 text-sm font-medium animate-shimmer" style={{ backgroundSize: '200% 100%' }}>
+        <span className="flex items-center justify-center gap-2">
+          <Sparkles className="w-4 h-4 animate-bounce-subtle" />
+          🎉 Save up to 15% on all products | Free shipping on orders ₹500+
+          <Sparkles className="w-4 h-4 animate-bounce-subtle" />
+        </span>
       </div>
 
       {/* Breadcrumb */}
@@ -147,25 +151,32 @@ const ProductDetail = () => {
             {/* Product Images - Gallery with Navigation */}
             <div className="relative lg:sticky lg:top-24 lg:self-start">
               {/* Main Image */}
-              <div className="relative aspect-square rounded-2xl overflow-hidden bg-cream-dark shadow-soft">
+              <div className="relative aspect-square rounded-2xl overflow-hidden bg-cream-dark shadow-soft group cursor-pointer hover:shadow-elevated transition-shadow duration-300">
                 <img
                   src={productImgs[currentImageIndex]}
                   alt={product.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 
                 {/* Badges */}
                 <div className="absolute top-4 left-4 flex flex-col gap-2">
                   {product.bestSeller && (
-                    <span className="bg-gold text-accent-foreground text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
-                      ⭐ Best Seller
+                    <span className="bg-gold text-accent-foreground text-xs font-bold px-3 py-1.5 rounded-full shadow-md animate-glow-pulse flex items-center gap-1">
+                      <Star className="w-3 h-3 fill-current" /> Best Seller
                     </span>
                   )}
                   {hasDiscount && (
-                    <span className="bg-destructive text-destructive-foreground text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
+                    <span className="bg-destructive text-destructive-foreground text-xs font-bold px-3 py-1.5 rounded-full shadow-md animate-bounce-subtle">
                       {getDiscountPercentage(currentWeightOption.price, currentWeightOption.discountPrice!)}% OFF
                     </span>
                   )}
+                </div>
+
+                {/* Quick View Hint */}
+                <div className="absolute bottom-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="bg-foreground/80 text-background text-xs px-3 py-1.5 rounded-full flex items-center gap-1">
+                    <Eye className="w-3 h-3" /> Click to zoom
+                  </span>
                 </div>
 
                 {/* Navigation Arrows */}
@@ -345,43 +356,56 @@ const ProductDetail = () => {
                 </div>
 
                 {/* Add to Cart Button */}
-                <Button
-                  variant="hero"
-                  size="xl"
-                  className="flex-1 h-14 text-base"
-                  onClick={handleAddToCart}
-                  disabled={!product.inStock}
-                >
-                  <ShoppingCart className="w-5 h-5 mr-2" />
-                  Add to Cart • {formatPrice((currentWeightOption.discountPrice || currentWeightOption.price) * quantity)}
-                </Button>
+                <div className="relative flex-1">
+                  <Button
+                    variant="hero"
+                    size="xl"
+                    className="w-full h-14 text-base animate-glow-pulse hover:scale-[1.02] transition-transform duration-200"
+                    onClick={handleAddToCart}
+                    disabled={!product.inStock}
+                  >
+                    <ShoppingCart className="w-5 h-5 mr-2" />
+                    Add to Cart • {formatPrice((currentWeightOption.discountPrice || currentWeightOption.price) * quantity)}
+                  </Button>
+                  {/* Attention ring effect */}
+                  <div className="absolute inset-0 rounded-lg border-2 border-gold animate-ping opacity-20 pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Limited Stock Alert */}
+              <div className="flex items-center gap-2 bg-destructive/10 text-destructive rounded-lg px-4 py-2.5 mb-5">
+                <Zap className="w-4 h-4 animate-bounce-subtle" />
+                <span className="text-sm font-medium">🔥 High demand! Only few items left in stock</span>
               </div>
 
               {/* Trust Badges - Inline */}
               <div className="flex flex-wrap gap-x-6 gap-y-2 py-4 border-t border-b border-border text-sm text-muted-foreground mb-6">
-                <div className="flex items-center gap-2">
-                  <Truck className="w-4 h-4 text-forest" />
+                <div className="flex items-center gap-2 hover:text-forest transition-colors cursor-pointer group">
+                  <Truck className="w-4 h-4 text-forest group-hover:animate-bounce-subtle" />
                   <span>Free delivery ₹500+</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <RefreshCw className="w-4 h-4 text-forest" />
+                <div className="flex items-center gap-2 hover:text-forest transition-colors cursor-pointer group">
+                  <RefreshCw className="w-4 h-4 text-forest group-hover:animate-spin" style={{ animationDuration: '2s' }} />
                   <span>Easy returns</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-forest" />
+                <div className="flex items-center gap-2 hover:text-forest transition-colors cursor-pointer group">
+                  <Shield className="w-4 h-4 text-forest group-hover:animate-pulse" />
                   <span>Secure checkout</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-forest" />
+                <div className="flex items-center gap-2 hover:text-forest transition-colors cursor-pointer group">
+                  <Clock className="w-4 h-4 text-forest group-hover:animate-bounce-subtle" />
                   <span>Ships in 24hrs</span>
                 </div>
               </div>
 
               {/* What's Included */}
               <div className="bg-cream-dark rounded-xl p-5 mb-6">
-                <h3 className="font-display text-lg font-semibold mb-4">What You Get</h3>
+                <h3 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-gold" />
+                  What You Get
+                </h3>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center gap-3 bg-card rounded-lg p-3">
+                  <div className="flex items-center gap-3 bg-card rounded-lg p-3 hover-lift cursor-pointer">
                     <div className="w-10 h-10 rounded-full bg-forest/10 flex items-center justify-center">
                       <Package className="w-5 h-5 text-forest" />
                     </div>
@@ -390,7 +414,7 @@ const ProductDetail = () => {
                       <div className="text-xs text-muted-foreground">Keeps freshness</div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 bg-card rounded-lg p-3">
+                  <div className="flex items-center gap-3 bg-card rounded-lg p-3 hover-lift cursor-pointer">
                     <div className="w-10 h-10 rounded-full bg-forest/10 flex items-center justify-center">
                       <Award className="w-5 h-5 text-forest" />
                     </div>
@@ -399,7 +423,7 @@ const ProductDetail = () => {
                       <div className="text-xs text-muted-foreground">Quality assured</div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 bg-card rounded-lg p-3">
+                  <div className="flex items-center gap-3 bg-card rounded-lg p-3 hover-lift cursor-pointer">
                     <div className="w-10 h-10 rounded-full bg-forest/10 flex items-center justify-center">
                       <Leaf className="w-5 h-5 text-forest" />
                     </div>
@@ -408,7 +432,7 @@ const ProductDetail = () => {
                       <div className="text-xs text-muted-foreground">FSSAI Certified</div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 bg-card rounded-lg p-3">
+                  <div className="flex items-center gap-3 bg-card rounded-lg p-3 hover-lift cursor-pointer">
                     <div className="w-10 h-10 rounded-full bg-forest/10 flex items-center justify-center">
                       <Heart className="w-5 h-5 text-forest" />
                     </div>
