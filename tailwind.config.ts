@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Cormorant Garamond"', 'serif'],
-        body: ['Inter', 'sans-serif'],
+        display: ['"Libre Baskerville"', 'serif'],
+        body: ['"Libre Baskerville"', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
